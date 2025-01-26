@@ -1,3 +1,3 @@
 # Shopping List
 
-My firstJS code. A simple shopping list app from Moder JS course I am taking.
+My first JS code. A simple shopping list app from Moder JS course I am taking.
