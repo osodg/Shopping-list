@@ -1,20 +1,11 @@
-/**
- * Add items to list via form - DONE
- * Remove items from list by clicking the "X" button
- * Clear all items from list with "clear all" button
- * Filter the items by typing in the filter field
- * All localStorage to persist items
- * Click on an item to put into "edit mode" and add to form
- * Update item
- * Deploy to GitHub Pages
- */
-
 // Selectors
 const itemForm = document.getElementById("item-form");
 const itemInput = document.getElementById("item-input");
 const itemList = document.getElementById("item-list");
 const clearBtn = document.getElementById("clear");
 const itemFilter = document.getElementById("filter");
+const formBtn = itemForm.querySelector("button");
+let isEditMode = false;
 
 function displayItems() {
   const itemsFromStorage = getItemsFromStorage();
@@ -98,7 +89,22 @@ function getItemsFromStorage() {
 function onClickItem(e) {
   if (e.target.parentElement.classList.contains("remove-item")) {
     removeItem(e.target.parentElement.parentElement);
+  } else {
+    setItemToEdit(e.target);
   }
+}
+
+function setItemToEdit(item) {
+  isEditMode = true;
+
+  itemList
+    .querySelectorAll("li")
+    .forEach((i) => i.classList.remove("edit-mode"));
+
+  item.classList.add("edit-mode");
+  formBtn.innerHTML = '<i class="fa-solid fa-pen"></i> Update Item';
+  formBtn.style.backgroundColor = "#228b22";
+  itemInput.value = item.textContent;
 }
 
 function removeItem(item) {
